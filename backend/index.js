@@ -12,5 +12,10 @@ try {
   console.log(error);
 }
 
+// generate new table db
+// (async () => {
+//   await db.sync();
+// })();
+
 // cek server running
 app.listen(5000, () => console.log("Server up and running!"));
