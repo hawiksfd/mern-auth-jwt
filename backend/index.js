@@ -1,5 +1,6 @@
 import express from "express";
 import db from "./config/db.js";
+import UserRoute from "./Routes/UserRoute.js";
 
 // deklarasi express
 const app = express();
@@ -16,6 +17,12 @@ try {
 // (async () => {
 //   await db.sync();
 // })();
+
+// middleware
+app.use(express.json());
+
+// routing
+app.use(UserRoute);
 
 // cek server running
 app.listen(5000, () => console.log("Server up and running!"));

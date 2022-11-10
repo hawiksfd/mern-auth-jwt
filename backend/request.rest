@@ -1,0 +1,12 @@
+GET http://localhost:5000/users
+
+#####
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "name": "agus",
+    "email": "agus@gmail.com",
+    "password":"agus123",
+    "confPassword": "agus123"
+}
