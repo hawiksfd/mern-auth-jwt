@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import db from "./config/db.js";
 import UserRoute from "./Routes/UserRoute.js";
 
@@ -24,6 +25,13 @@ const app = express();
 // })();
 
 // middleware
+app.use(
+  cors({
+    credentials: true, // client mengirim credentials
+    origin: "http://localhost:3000", //
+  })
+); // cors untuk memberikan akses api diluar domain
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(UserRoute); // routing
