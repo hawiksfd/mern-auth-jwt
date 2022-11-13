@@ -1,17 +1,21 @@
 import express from "express";
+import dotenv from "dotenv";
 import db from "./config/db.js";
 import UserRoute from "./Routes/UserRoute.js";
+
+//deklarasi dot env
+dotenv.config();
 
 // deklarasi express
 const app = express();
 
 // cek konseksi database
-try {
-  await db.authenticate();
-  console.log("DB Connected!");
-} catch (error) {
-  console.log(error);
-}
+// try {
+//   await db.authenticate();
+//   console.log("DB Connected!");
+// } catch (error) {
+//   console.log(error);
+// }
 
 // generate new table db
 // (async () => {
