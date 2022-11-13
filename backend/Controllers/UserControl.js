@@ -71,7 +71,7 @@ export const Login = async (req, res) => {
       { userId, name, email },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "20s",
+        expiresIn: "15s",
       }
     );
 
@@ -105,4 +105,36 @@ export const Login = async (req, res) => {
   } catch (error) {
     res.status(404).json({ msg: "Akun anda tidak ditemukan!" });
   }
+};
+
+export const Logout = async (req, res) => {
+  // ambil value token dari cookie
+  const refreshToken = req.cookies.refresh_token;
+  // validasi token
+  if (!refreshToken) return res.sendStatus(204); // 204 = no content
+  // compare token dg token db
+  const user = await Users.findAll({
+    where: {
+      refresh_token: refreshToken,
+    },
+  });
+  // jika token tidak cocok
+  if (!user[0]) return res.sendStatus(204);
+  // ambil id dari db
+  const userId = user[0].id;
+  // update refresh_token menjadi null berdasarkan id
+  await Users.update(
+    {
+      refresh_token: null,
+    },
+    {
+      where: {
+        id: userId,
+      },
+    }
+  );
+  // hapus refresh token pada cookie
+  res.clearCookie("refresh_token");
+  // kirim response
+  return res.sendStatus(200);
 };

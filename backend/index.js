@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import db from "./config/db.js";
 import UserRoute from "./Routes/UserRoute.js";
 
@@ -23,10 +24,9 @@ const app = express();
 // })();
 
 // middleware
+app.use(cookieParser());
 app.use(express.json());
-
-// routing
-app.use(UserRoute);
+app.use(UserRoute); // routing
 
 // cek server running
 app.listen(5000, () => console.log("Server up and running!"));
